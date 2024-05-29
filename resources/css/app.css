@@ -6,6 +6,10 @@
     display: none !important;
 }
 
+.idea-container {
+    border: 1px solid #eee;
+}
+
 .comments-container::before {
     position: absolute;
     display: block;
