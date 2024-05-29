@@ -51,7 +51,7 @@
                 </div>
                 <div class="w-full mx-4">
                     <h4 class="text-xl font-semibold">
-                        <a href="#" class="hover:underline">A random title can go here</a>
+                        <a href="/idea" class="hover:underline">A random title can go here</a>
                     </h4>
                     <div class="mt-3 text-gray-600 line-clamp-3">
                         Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum possimus quasi reprehenderit earum
@@ -66,19 +66,30 @@
                             <div>&bull;</div>
                             <div class="text-gray-900">3 Comments</div>
                         </div>
-                        <div class="flex items-center space-x-2">
+                        <div
+                            x-data="{ isOpen: false }"
+                            class="flex items-center space-x-2"
+                            >
                             <div
                                 class="px-4 py-2 font-bold leading-none text-center uppercase bg-gray-200 rounded-full text-xxs w-28 h-7">
                                 Open</div>
                             <button
-                                class="relative px-3 py-2 transition duration-150 ease-in bg-gray-100 border rounded-full hover:bg-gray-200 h-7">
+                                class="relative px-3 py-2 transition duration-150 ease-in bg-gray-100 border rounded-full hover:bg-gray-200 h-7"
+                                @click="isOpen = !isOpen"
+                                >
                                 <svg fill="currentColor" width="24" height="6">
                                     <path
                                         d="M2.97.061A2.969 2.969 0 000 3.031 2.968 2.968 0 002.97 6a2.97 2.97 0 100-5.94zm9.184 0a2.97 2.97 0 100 5.939 2.97 2.97 0 100-5.939zm8.877 0a2.97 2.97 0 10-.003 5.94A2.97 2.97 0 0021.03.06z"
                                         style="color: rgba(163, 163, 163, .5)">
                                 </svg>
                                 <ul
-                                    class="absolute py-3 ml-8 font-semibold text-left bg-white w-44 shadow-dialog rounded-xl">
+                                    class="absolute py-3 ml-8 font-semibold text-left bg-white w-44 shadow-dialog rounded-xl"
+                                    x-show="isOpen"
+                                    x-transition.duration.300ms
+                                    @click.away="isOpen = false"
+                                    @keydown.escape.window="isOpen = false"
+                                    x-cloak
+                                    >
                                     <li><a href="#"
                                             class="block px-5 py-3 transition duration-150 ease-in hover:bg-gray-100">Mark
                                             as Spam</a></li>
