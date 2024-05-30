@@ -57,16 +57,14 @@ class CreateIdeaTest extends TestCase
     public function creating_an_idea_works_correctly()
     {
         $user = User::factory()->create();
-
-        $categoryOne = Category::factory()->create(['name' => 'Category 1']);
-
+        $category = Category::factory()->create(['name' => 'Category 1']);
         $statusOpen = Status::factory()->create(['name' => 'Open']);
 
         Livewire::actingAs($user)
             ->test(CreateIdea::class)
             ->set('title', 'My first idea')
             ->set('description', 'My first description')
-            ->set('category', $categoryOne->id)
+            ->set('category', $category->id)
             ->call('createIdea')
             ->assertRedirect('/');
 
@@ -79,7 +77,7 @@ class CreateIdeaTest extends TestCase
         $this->assertDatabaseHas('ideas', [
             'title' => 'My first idea',
             'description' => 'My first description',
-            'category_id' => $categoryOne->id,
+            'category_id' => $category->id,
             'status_id' => $statusOpen->id
         ]);
     }
