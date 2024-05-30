@@ -2,19 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Idea;
-use App\Http\Requests\StoreIdeaRequest;
-use App\Http\Requests\UpdateIdeaRequest;
+use App\Models\Status;
+use App\Http\Requests\StoreStatusRequest;
+use App\Http\Requests\UpdateStatusRequest;
 
-class IdeaController extends Controller
+class StatusController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $ideas = Idea::with(['user', 'category', 'status'])->latest('id')->simplePaginate(Idea::PAGINATION_COUNT);
-        return view('idea.index', compact('ideas'));
+        //
     }
 
     /**
@@ -28,7 +27,7 @@ class IdeaController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreIdeaRequest $request)
+    public function store(StoreStatusRequest $request)
     {
         //
     }
@@ -36,16 +35,15 @@ class IdeaController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Idea $idea)
+    public function show(Status $status)
     {
-        // $idea->load(['user', 'category']);
-        return view('idea.show', compact('idea'));
+        //
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Idea $idea)
+    public function edit(Status $status)
     {
         //
     }
@@ -53,7 +51,7 @@ class IdeaController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateIdeaRequest $request, Idea $idea)
+    public function update(UpdateStatusRequest $request, Status $status)
     {
         //
     }
@@ -61,7 +59,7 @@ class IdeaController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Idea $idea)
+    public function destroy(Status $status)
     {
         //
     }
