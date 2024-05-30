@@ -26,7 +26,7 @@
                 </svg>
             </div>
         </div>
-    </div> <!-- end filters -->
+    </div>
 
     <div class="my-8 space-y-6 ideas-container">
         @foreach ($ideas as $idea)
@@ -36,7 +36,7 @@
                 :votesCount="$idea->votes_count"
             />
         @endforeach
-    </div> <!-- end ideas-container -->
+    </div>
 
     <div class="my-8">
         {{ $ideas->links() }}
