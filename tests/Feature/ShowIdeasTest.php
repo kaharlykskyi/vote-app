@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use Tests\TestCase;
 use App\Models\Idea;
 use App\Models\Category;
+use App\Models\Status;
 use PHPUnit\Framework\Attributes\Test;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -21,11 +22,13 @@ class ShowIdeasTest extends TestCase
         $ideaOne = Idea::factory()->create([
             'title' => 'My first idea',
             'category_id' => $categoryOne->id,
+            'status_id' => Status::factory()->create(),
             'description' => 'My first description'
         ]);
         $ideaTwo = Idea::factory()->create([
             'title' => 'My second idea',
             'category_id' => $categoryTwo->id,
+            'status_id' => Status::factory()->create(),
             'description' => 'My second description'
         ]);
 
@@ -47,6 +50,7 @@ class ShowIdeasTest extends TestCase
         $idea = Idea::factory()->create([
             'title' => 'My first idea',
             'category_id' => $category->id,
+            'status_id' => Status::factory()->create(),
             'description' => 'My first description'
         ]);
 
@@ -62,7 +66,8 @@ class ShowIdeasTest extends TestCase
     public function idea_pagination_works()
     {
         Idea::factory(Idea::PAGINATION_COUNT + 1)->create([
-            'category_id' => Category::factory()->create()
+            'category_id' => Category::factory()->create(),
+            'status_id' => Status::factory()->create()
         ]);
 
         $ideaOne = Idea::find(1);
@@ -76,13 +81,13 @@ class ShowIdeasTest extends TestCase
         $response = $this->get('/');
 
         $response->assertSuccessful();
-        $response->assertSee($ideaOne->title);
-        $response->assertDontSee($ideaEleven->title);
+        $response->assertSee($ideaEleven->title);
+        $response->assertDontSee($ideaOne->title);
 
         $response = $this->get('/?page=2');
         $response->assertSuccessful();
-        $response->assertSee($ideaEleven->title);
-        $response->assertDontSee($ideaOne->title);
+        $response->assertSee($ideaOne->title);
+        $response->assertDontSee($ideaEleven->title);
     }
 
     #[Test]
@@ -95,12 +100,14 @@ class ShowIdeasTest extends TestCase
             'title' => 'My First Idea',
             'category_id' => $categoryOne->id,
             'description' => 'Description for my first idea',
+            'status_id' => Status::factory()->create(),
         ]);
 
         $ideaTwo = Idea::factory()->create([
             'title' => 'My First Idea',
             'category_id' => $categoryTwo->id,
             'description' => 'Another Description for my first idea',
+            'status_id' => Status::factory()->create(),
         ]);
 
         $response = $this->get(route('idea.show', $ideaOne));
