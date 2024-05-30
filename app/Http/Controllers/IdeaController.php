@@ -13,7 +13,11 @@ class IdeaController extends Controller
      */
     public function index()
     {
-        $ideas = Idea::with(['user', 'category', 'status'])->latest('id')->simplePaginate(Idea::PAGINATION_COUNT);
+        $ideas = Idea::with(['user', 'category', 'status'])
+            ->withCount('votes')
+            ->orderBy('id', 'desc')
+            ->simplePaginate(Idea::PAGINATION_COUNT);
+
         return view('idea.index', compact('ideas'));
     }
 
@@ -38,8 +42,10 @@ class IdeaController extends Controller
      */
     public function show(Idea $idea)
     {
-        // $idea->load(['user', 'category']);
-        return view('idea.show', compact('idea'));
+        return view('idea.show', [
+            'idea' => $idea,
+            'votesCount' => $idea->votes()->count(),
+        ]);
     }
 
     /**
