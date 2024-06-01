@@ -35,6 +35,6 @@
     </div>
 
     <div class="my-8">
-        {{ $ideas->links() }}
+        {{ $ideas->withQueryString()->links() }}
     </div>
 </div>

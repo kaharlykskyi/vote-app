@@ -81,37 +81,19 @@
                             class="justify-center inline-block w-1/2 px-6 py-3 text-xs font-bold text-white transition duration-150 ease-in border h-11 bg-blue border-blue hover:bg-blue-hover rounded-xl">Log
                             in</a>
                         <a href="{{ route('register') }}"
-                        class="justify-center inline-block w-1/2 px-6 py-3 mt-4 text-xs font-bold transition duration-150 ease-in bg-gray-200 border border-gray-200 h-11 hover:border-gray-400 rounded-xl">Register</a>
+                            class="justify-center inline-block w-1/2 px-6 py-3 mt-4 text-xs font-bold transition duration-150 ease-in bg-gray-200 border border-gray-200 h-11 hover:border-gray-400 rounded-xl">Register</a>
                     </div>
                 @endauth
             </div>
         </div>
         <div class="w-full px-2 md:px-0 md:w-175">
-            <nav class="items-center justify-between hidden text-xs md:flex">
-                <ul class="flex pb-3 space-x-10 font-semibold uppercase border-b-4">
-                    <li><a href="#" class="pb-3 border-b-4 border-blue">All Ideas (87)</a></li>
-                    <li><a href="#"
-                            class="pb-3 text-gray-400 transition duration-150 ease-in border-b-4 hover:border-blue">Considering
-                            (6)</a></li>
-                    <li><a href="#"
-                            class="pb-3 text-gray-400 transition duration-150 ease-in border-b-4 hover:border-blue">In
-                            Progress (1)</a></li>
-                </ul>
-
-                <ul class="flex pb-3 space-x-10 font-semibold uppercase border-b-4">
-                    <li><a href="#"
-                            class="pb-3 text-gray-400 transition duration-150 ease-in border-b-4 hover:border-blue">Implemented
-                            (10)</a></li>
-                    <li><a href="#"
-                            class="pb-3 text-gray-400 transition duration-150 ease-in border-b-4 hover:border-blue">Closed
-                            (55)</a></li>
-                </ul>
-            </nav>
-
+            <livewire:status-filters />
             <div class="mt-8">
                 {{ $slot }}
             </div>
         </div>
+
+
     </main>
 </body>
 
