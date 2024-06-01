@@ -75,7 +75,6 @@ class Idea extends Model
     {
         Vote::where('user_id', $user->id)
             ->where('idea_id', $this->id)
-            ->first()
             ->delete();
     }
 }
