@@ -6,7 +6,7 @@
                 class="pb-3 transition duration-150 ease-in border-b-4 hover:border-blue
                 @if ($status === 'All') text-gray-900 border-blue @endif"
             >
-                All Ideas (87)
+                All Ideas ({{ $statusCount['all_statuses'] }})
             </a>
         </li>
         <li>
@@ -15,7 +15,7 @@
                 class="pb-3 transition duration-150 ease-in border-b-4 hover:border-blue
                 @if ($status === 'Considering') text-gray-900 border-blue @endif"
             >
-                Considering(6)
+                Considering ({{ $statusCount['considering'] }})
             </a>
         </li>
         <li>
@@ -25,7 +25,7 @@
                 class="pb-3 transition duration-150 ease-in border-b-4 hover:border-blue
                 @if ($status === 'In Progress') text-gray-900 border-blue @endif"
             >
-                In Progress (1)
+                In Progress ({{ $statusCount['in_progress'] }})
             </a>
         </li>
     </ul>
@@ -38,7 +38,7 @@
                 class="pb-3 transition duration-150 ease-in border-b-4 hover:border-blue
                 @if ($status === 'Implemented') text-gray-900 border-blue @endif"
             >
-                Implemented (10)
+                Implemented ({{ $statusCount['implemented'] }})
             </a>
         </li>
         <li>
@@ -48,7 +48,7 @@
                 class="pb-3 transition duration-150 ease-in border-b-4 hover:border-blue
                 @if ($status === 'Closed') text-gray-900 border-blue @endif"
             >
-                Closed (55)
+                Closed ({{ $statusCount['closed'] }})
             </a>
         </li>
     </ul>
