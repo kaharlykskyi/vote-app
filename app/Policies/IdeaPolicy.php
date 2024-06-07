@@ -37,7 +37,9 @@ class IdeaPolicy
      */
     public function update(User $user, Idea $idea): bool
     {
-        //
+        return $user->id === (int) $idea->user_id
+            && now()->subHour()->lte($idea->created_at);
+
     }
 
     /**
@@ -45,7 +47,7 @@ class IdeaPolicy
      */
     public function delete(User $user, Idea $idea): bool
     {
-        //
+        return $user->id === $idea->user_id;
     }
 
     /**
@@ -53,7 +55,7 @@ class IdeaPolicy
      */
     public function restore(User $user, Idea $idea): bool
     {
-        //
+        return false;
     }
 
     /**
@@ -61,6 +63,6 @@ class IdeaPolicy
      */
     public function forceDelete(User $user, Idea $idea): bool
     {
-        //
+        return false;
     }
 }

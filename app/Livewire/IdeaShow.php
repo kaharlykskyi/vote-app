@@ -11,9 +11,14 @@ class IdeaShow extends Component
     public $votesCount;
     public $hasVoted;
 
-    public $listeners = ['statusWasUpdated'];
+    public $listeners = ['statusWasUpdated', 'ideaWasUpdated'];
 
     public function statusWasUpdated()
+    {
+        $this->idea->refresh();
+    }
+
+    public function ideaWasUpdated()
     {
         $this->idea->refresh();
     }
