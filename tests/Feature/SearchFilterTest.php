@@ -131,7 +131,7 @@ class SearchFilterTest extends TestCase
 
         $ideaTwo = Idea::factory()->create([
             'user_id' => $user->id,
-            'category_id' => $categoryOne->id,
+            'category_id' => $categoryTwo->id,
             'status_id' => $statusOpen->id,
             'title' => 'My Second Idea',
             'description' => 'Description for my first idea',
@@ -146,10 +146,10 @@ class SearchFilterTest extends TestCase
         ]);
 
         Livewire::test(IdeasIndex::class)
-            ->set('category', 'Category 1')
+            ->set('category', 'Category 2')
             ->set('search', 'Idea')
             ->assertViewHas('ideas', function ($ideas) {
-                return $ideas->count() === 2;
+                return $ideas->count() === 3;
             });
     }
 }

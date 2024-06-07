@@ -68,16 +68,15 @@
                     </svg>
                     <span class="ml-1">Attach</span>
                 </button>
-                <button type="submit"
-                    class="flex items-center justify-center w-1/2 px-6 py-3 text-xs font-semibold text-white transition duration-150 ease-in border h-11 bg-blue rounded-xl border-blue hover:bg-blue-hover">
+                <button type="submit" wire:loading.attr="disabled"
+                    class="flex items-center justify-center w-1/2 px-6 py-3 text-xs font-semibold text-white transition duration-150 ease-in border h-11 bg-blue rounded-xl border-blue hover:bg-blue-hover disabled:opacity-50">
                     <span class="ml-1">Update</span>
                 </button>
             </div>
 
             <div>
-                <label class="inline-flex items-center font-normal">
-                    <input type="checkbox" name="notify_voters" class="bg-gray-200 rounded"
-                        checked="">
+                <label wire:model='notifyAllVotes' class="inline-flex items-center font-normal">
+                    <input type="checkbox" name="notify_voters" class="bg-gray-200 rounded">
                     <span class="ml-2">Notify all voters</span>
                 </label>
             </div>
