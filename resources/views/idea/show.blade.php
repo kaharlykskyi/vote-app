@@ -13,6 +13,8 @@
         :votesCount="$votesCount"
     />
 
+    <livewire:edit-idea :idea="$idea" />
+
     <div class="relative pt-4 my-8 mt-1 space-y-6 comments-container md:ml-22">
         <div class="relative flex mt-4 bg-white comment-container rounded-xl">
             <div class="flex flex-col flex-1 px-4 py-6 md:flex-row">

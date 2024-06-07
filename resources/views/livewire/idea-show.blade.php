@@ -39,11 +39,14 @@
                                 x-cloak x-show.transition.origin.top.left="isOpen" @click.away="isOpen = false"
                                 @keydown.escape.window="isOpen = false">
                                 <li><a href="#"
+                                    class="block px-5 py-3 transition duration-150 ease-in hover:bg-gray-100">Edit
+                                    Idea</a></li>
+                                <li><a href="#"
                                         class="block px-5 py-3 transition duration-150 ease-in hover:bg-gray-100">Mark
                                         as Spam</a></li>
                                 <li><a href="#"
                                         class="block px-5 py-3 transition duration-150 ease-in hover:bg-gray-100">Delete
-                                        Post</a></li>
+                                        Idea</a></li>
                             </ul>
                         </button>
                     </div>
