@@ -26,7 +26,10 @@ class DatabaseSeeder extends Seeder
 
         User::factory()->count(19)->create();
 
-        Category::factory()->count(4)->create();
+        Category::factory()->create(['name' => 'Laravel']);
+        Category::factory()->create(['name' => 'PHP']);
+        Category::factory()->create(['name' => 'JavaScript']);
+        Category::factory()->create(['name' => 'Livewire']);
 
         Status::factory()->create(['name' => 'Open']);
         Status::factory()->create(['name' => 'Considering']);
