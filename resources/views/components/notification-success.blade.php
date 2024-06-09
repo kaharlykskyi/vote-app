@@ -36,6 +36,10 @@
             Livewire.on('status-was-updated', message => {
                 showNotification(message)
             })
+
+            Livewire.on('idea-was-commented', message => {
+                showNotification(message)
+            })
         @endif
     "
     x-show="isOpen"

@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Models\Comment;
+use App\Models\Idea;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 
