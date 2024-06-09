@@ -60,7 +60,7 @@ class IdeasIndex extends Component
         $statuses = Status::pluck('id', 'name');
         $categories = Category::all();
 
-        $ideas = Idea::with(['user', 'category', 'status'])
+        $ideas = Idea::with(['user', 'category', 'status',])
             ->addSelect(['voted_by_user' => Vote::select('id')
                 ->where('user_id', auth()->id())
                 ->whereColumn('idea_id', 'ideas.id')
@@ -85,6 +85,7 @@ class IdeasIndex extends Component
                     ->orWhere('description', 'like', '%'.$this->search.'%');
             })
             ->withCount('votes')
+            ->withCount('comments')
             ->orderBy('id', 'desc')
             ->simplePaginate(Idea::PAGINATION_COUNT);
 

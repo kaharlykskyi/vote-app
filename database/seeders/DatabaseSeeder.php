@@ -8,6 +8,7 @@ use App\Models\Vote;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use App\Models\Status;
 use App\Models\Category;
+use App\Models\Comment;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Auth;
 
@@ -18,18 +19,18 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        $admin = User::factory()->create([
+        User::factory()->create([
             'name' => 'Mike',
             'email' => 'mishakagar@gmail.com',
             'password' => bcrypt('1234'),
         ]);
 
-        User::factory()->count(19)->create();
+        User::factory(19)->create();
 
         Category::factory()->create(['name' => 'Laravel']);
         Category::factory()->create(['name' => 'PHP']);
         Category::factory()->create(['name' => 'JavaScript']);
-        Category::factory()->create(['name' => 'Livewire']);
+        Category::factory()->create(['name' => 'MySQL']);
 
         Status::factory()->create(['name' => 'Open']);
         Status::factory()->create(['name' => 'Considering']);
@@ -37,20 +38,21 @@ class DatabaseSeeder extends Seeder
         Status::factory()->create(['name' => 'Implemented']);
         Status::factory()->create(['name' => 'Closed']);
 
-        Idea::factory()->count(100)->create();
+        Idea::factory(100)->existing()->create();
 
-        //generate unique votes, ensure idea_id and user_id are unique for each row
-        foreach(range(1, 20) as $user_id) {
-            foreach(range(1, 100) as $idea_id) {
-                if($idea_id % 2 === 0) {
-                    continue;
+        foreach (range(1, 20) as $user_id) {
+            foreach (range(1, 100) as $idea_id) {
+                if ($idea_id % 2 === 0) {
+                    Vote::factory()->create([
+                        'user_id' => $user_id,
+                        'idea_id' => $idea_id,
+                    ]);
                 }
-
-                Vote::factory()->create([
-                    'idea_id' => $idea_id,
-                    'user_id' => $user_id,
-                ]);
             }
+        }
+
+        foreach (Idea::all() as $idea) {
+            Comment::factory(5)->existing()->create(['idea_id' => $idea->id]);
         }
     }
 }
