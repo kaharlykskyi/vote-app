@@ -6,7 +6,7 @@
     @custom-show-edit-modal.window="isOpen = true"
     class="fixed inset-0 z-10 overflow-y-auto"
     aria-labelledby="modal-title"
-    x-init="$wire.on('ideaWasUpdated', () => { isOpen = false })"
+    x-on:idea-was-updated.window="isOpen = false"
     role="dialog"
     aria-modal="true"
 >

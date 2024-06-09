@@ -12,11 +12,11 @@ class IdeaShow extends Component
     public $hasVoted;
 
     public $listeners = [
-        'statusWasUpdated' => '$refresh',
-        'ideaWasUpdated' => '$refresh',
-        'ideaWasDeleted' => '$refresh',
-        'ideaWasMarkedAsSpam' => '$refresh',
-        'ideaWasMarkedAsNotSpam' => '$refresh',
+        'status-was-updated' => '$refresh',
+        'idea-was-updated' => '$refresh',
+        'idea-was-deleted' => '$refresh',
+        'idea-was-marked-as-spam' => '$refresh',
+        'idea-was-marked-as-not-spam' => '$refresh',
     ];
 
     public function mount(Idea $idea, int $votesCount)

@@ -120,7 +120,7 @@ class AdminSetStatusTest extends TestCase
             ])
             ->set('status', $statusInProgress->id)
             ->call('setStatus')
-            ->assertDispatched('statusWasUpdated');
+            ->assertDispatched('status-was-updated');
 
         $this->assertDatabaseHas('ideas', [
             'id' => $idea->id,

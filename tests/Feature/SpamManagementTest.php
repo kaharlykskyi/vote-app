@@ -50,7 +50,7 @@ class SpamManagementTest extends TestCase
                 'idea' => $idea,
             ])
             ->call('markAsSpam')
-            ->assertDispatched('ideaWasMarkedAsSpam');
+            ->assertDispatched('idea-was-marked-as-spam');
 
         $this->assertEquals(1, Idea::first()->spam_reports);
     }
@@ -126,7 +126,7 @@ class SpamManagementTest extends TestCase
                 'idea' => $idea,
             ])
             ->call('markAsNotSpam')
-            ->assertDispatched('ideaWasMarkedAsNotSpam');
+            ->assertDispatched('idea-was-marked-as-not-spam');
 
         $this->assertEquals(0, Idea::first()->spam_reports);
     }
