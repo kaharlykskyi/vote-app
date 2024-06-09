@@ -18,7 +18,7 @@ class MarkIdeaAsSpam extends Component
 
     public function markAsSpam()
     {
-        if (auth()->guest() || ! auth()->user()->isAdmin()) {
+        if (auth()->guest()) {
             abort(Response::HTTP_FORBIDDEN);
         }
 
