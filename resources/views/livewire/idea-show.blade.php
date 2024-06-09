@@ -27,52 +27,58 @@
                             class="{{ Str::kebab('status' . $idea->status->name) }} px-4 py-2 font-bold leading-none text-center uppercase rounded-full text-xxs w-28 h-7">
                             {{ $idea->status->name }}
                         </div>
-                        <button
-                            class="relative px-3 py-2 transition duration-150 ease-in bg-gray-100 border rounded-full hover:bg-gray-200 h-7"
-                            @click="
-                                isOpen = !isOpen;
-                            ">
-                            <svg fill="currentColor" width="24" height="6">
-                                <path
-                                    d="M2.97.061A2.969 2.969 0 000 3.031 2.968 2.968 0 002.97 6a2.97 2.97 0 100-5.94zm9.184 0a2.97 2.97 0 100 5.939 2.97 2.97 0 100-5.939zm8.877 0a2.97 2.97 0 10-.003 5.94A2.97 2.97 0 0021.03.06z"
-                                    style="color: rgba(163, 163, 163, .5)">
-                            </svg>
-                            <ul class="absolute right-0 z-10 py-3 font-semibold text-left bg-white w-44 shadow-dialog rounded-xl md:ml-8 top-8 md:top-6 md:left-0"
-                                x-cloak x-show.transition.origin.top.left="isOpen" @click.away="isOpen = false"
-                                @keydown.escape.window="isOpen = false">
-                                @can('update', $idea)
-                                    <li>
-                                        <a @click.prevent="
-                                                isOpen = false
-                                                $dispatch('custom-show-edit-modal')
-                                            "
-                                            href="#"
-                                            class="block px-5 py-3 transition duration-150 ease-in hover:bg-gray-100">
-                                            Edit Idea
-                                        </a>
+                        @auth
+                            <button
+                                class="relative px-3 py-2 transition duration-150 ease-in bg-gray-100 border rounded-full hover:bg-gray-200 h-7"
+                                @click="
+                                    isOpen = !isOpen;
+                                ">
+                                <svg fill="currentColor" width="24" height="6">
+                                    <path
+                                        d="M2.97.061A2.969 2.969 0 000 3.031 2.968 2.968 0 002.97 6a2.97 2.97 0 100-5.94zm9.184 0a2.97 2.97 0 100 5.939 2.97 2.97 0 100-5.939zm8.877 0a2.97 2.97 0 10-.003 5.94A2.97 2.97 0 0021.03.06z"
+                                        style="color: rgba(163, 163, 163, .5)">
+                                </svg>
+                                <ul class="absolute right-0 z-10 py-3 font-semibold text-left bg-white w-44 shadow-dialog rounded-xl md:ml-8 top-8 md:top-6 md:left-0"
+                                    x-cloak x-show.transition.origin.top.left="isOpen" @click.away="isOpen = false"
+                                    @keydown.escape.window="isOpen = false">
+                                    @can('update', $idea)
+                                        <li>
+                                            <a @click.prevent="
+                                                    isOpen = false
+                                                    $dispatch('custom-show-edit-modal')
+                                                "
+                                                href="#"
+                                                class="block px-5 py-3 transition duration-150 ease-in hover:bg-gray-100">
+                                                Edit Idea
+                                            </a>
 
-                                    </li>
-                                @endcan
-                                <li>
-                                    <a href="#"
-                                        class="block px-5 py-3 transition duration-150 ease-in hover:bg-gray-100">Mark
-                                        as Spam
-                                    </a>
-                                </li>
-                                @can('delete', $idea)
+                                        </li>
+                                    @endcan
                                     <li>
                                         <a @click.prevent="
                                                         isOpen = false
-                                                        $dispatch('custom-show-delete-modal')
+                                                        $dispatch('custom-show-spam-modal')
                                                     "
                                             href="#"
                                             class="block px-5 py-3 transition duration-150 ease-in hover:bg-gray-100">
-                                            Delete Idea
+                                            Mark as Spam
                                         </a>
                                     </li>
-                                @endcan
-                            </ul>
-                        </button>
+                                    @can('delete', $idea)
+                                        <li>
+                                            <a @click.prevent="
+                                                            isOpen = false
+                                                            $dispatch('custom-show-delete-modal')
+                                                        "
+                                                href="#"
+                                                class="block px-5 py-3 transition duration-150 ease-in hover:bg-gray-100">
+                                                Delete Idea
+                                            </a>
+                                        </li>
+                                    @endcan
+                                </ul>
+                            </button>
+                        @endauth
                     </div>
 
                     <div class="flex items-center mt-4 md:hidden md:mt-0">
