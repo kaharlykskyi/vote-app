@@ -10,7 +10,14 @@
                 <h4 class="text-xl font-semibold">
                     <a href="#" class="hover:underline">{{ $idea->title }}</a>
                 </h4>
-                <div class="mt-3 text-gray-600">{{ $idea->description }}</div>
+                <div class="mt-3 text-gray-600">
+                    @admin
+                        @if ($idea->spam_reports > 0)
+                            <div class="mb-2 text-red">Spam Reports: {{ $idea->spam_reports }}</div>
+                        @endif
+                    @endadmin
+                    {{ $idea->description }}
+                </div>
 
                 <div class="flex flex-col justify-between mt-6 md:flex-row md:items-center">
                     <div class="flex items-center space-x-2 text-xs font-semibold text-gray-400">
@@ -76,6 +83,22 @@
                                             </a>
                                         </li>
                                     @endcan
+                                    @admin
+                                        @if ($idea->spam_reports > 0)
+                                            <li>
+                                                <a
+                                                    href="#"
+                                                    @click.prevent="
+                                                        isOpen = false
+                                                        $dispatch('custom-show-mark-idea-as-not-spam-modal')
+                                                    "
+                                                    class="block px-5 py-3 transition duration-150 ease-in hover:bg-gray-100"
+                                                >
+                                                    Not Spam
+                                                </a>
+                                            </li>
+                                        @endif
+                                    @endadmin
                                 </ul>
                             </button>
                         @endauth
@@ -141,11 +164,9 @@
                     </form>
                 </div>
             </div>
-            @auth
-                @if (auth()->user()->isAdmin())
-                    <livewire:set-status :idea="$idea" />
-                @endif
-            @endauth
+            @admin
+                <livewire:set-status :idea="$idea" />
+            @endadmin
         </div>
 
         <div class="items-center hidden space-x-3 md:flex">

@@ -4,6 +4,11 @@
     x-show="isSpamModalOpen"
     @keydown.escape.window="isSpamModalOpen = false"
     @custom-show-spam-modal.window="isSpamModalOpen = true"
+    x-init="
+        $wire.on('ideaWasMarkedAsSpam', () => {
+            isSpamModalOpen = false
+        })
+    "
     class="relative z-10"
     aria-labelledby="modal-title"
     role="dialog"

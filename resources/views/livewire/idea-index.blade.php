@@ -40,7 +40,14 @@
             <h4 class="mt-2 text-xl font-semibold md:mt-0">
                 <a href="{{ route('idea.show', $idea) }}" class="idea-link">{{ $idea->title }}</a>
             </h4>
-            <div class="mt-3 text-gray-600 line-clamp-3">{{ $idea->description }}</div>
+            <div class="mt-3 text-gray-600 line-clamp-3">
+                @admin
+                    @if ($idea->spam_reports > 0)
+                        <div class="mb-2 text-red">Spam Reports: {{ $idea->spam_reports }}</div>
+                    @endif
+                @endadmin
+                {{ $idea->description }}
+            </div>
 
             <div class="flex flex-col justify-between mt-6 md:flex-row md:items-center">
                 <div class="flex items-center space-x-2 text-xs font-semibold text-gray-400">

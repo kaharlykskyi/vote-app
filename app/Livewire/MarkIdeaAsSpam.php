@@ -4,6 +4,7 @@ namespace App\Livewire;
 
 use App\Models\Idea;
 use Livewire\Component;
+use Illuminate\Http\Response;
 
 class MarkIdeaAsSpam extends Component
 {
@@ -17,6 +18,10 @@ class MarkIdeaAsSpam extends Component
 
     public function markAsSpam()
     {
+        if (auth()->guest() || ! auth()->user()->isAdmin()) {
+            abort(Response::HTTP_FORBIDDEN);
+        }
+
         $this->idea->update([
             'spam_reports' => $this->idea->spam_reports + 1
         ]);
