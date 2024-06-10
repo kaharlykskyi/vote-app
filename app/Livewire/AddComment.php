@@ -9,6 +9,7 @@ class AddComment extends Component
 {
 
     public Idea $idea;
+
     public $body;
 
     protected $rules = [
@@ -23,7 +24,7 @@ class AddComment extends Component
 
         $this->validate();
 
-        $this->idea->comments()->create([
+        $comment = $this->idea->comments()->create([
             'user_id' => auth()->id(),
             'body' => $this->body
         ]);
@@ -32,7 +33,10 @@ class AddComment extends Component
 
         $this->idea = Idea::find($this->idea->id); // Refresh the idea
 
-        $this->dispatch('idea-was-commented', "Your comment was added!");
+        $this->dispatch('idea-was-commented', [
+            'id' => $comment->id,
+            'text' => 'Comment was added!'
+        ]);
     }
 
     public function render()

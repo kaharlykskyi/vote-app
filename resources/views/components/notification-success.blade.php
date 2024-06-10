@@ -17,7 +17,7 @@
         }
     }"
     x-init="
-        console.log('init');
+        console.log('');
         @if ($redirect)
             $nextTick(() => showNotification(messageToDisplay))
         @else
@@ -38,7 +38,7 @@
             })
 
             Livewire.on('idea-was-commented', message => {
-                showNotification(message)
+                showNotification(message[0].text)
             })
         @endif
     "

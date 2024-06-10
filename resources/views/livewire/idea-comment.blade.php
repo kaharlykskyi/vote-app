@@ -1,5 +1,5 @@
 
-<div class="relative flex mt-4 bg-white comment-container rounded-xl">
+<div class="relative flex mt-4 transition duration-500 ease-in border border-gray-200 comment-container rounded-xl">
     <div class="flex flex-col flex-1 px-4 py-6 md:flex-row">
         <div class="flex-none">
             <a href="#">
