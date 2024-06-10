@@ -1,4 +1,6 @@
-<div class="relative flex mt-4 transition duration-500 ease-in border border-gray-200 comment-container rounded-xl @if($comment->is_status_update) is-status-update {{ Str::kebab('status' . $comment->status->name) }} @endif">
+<div
+    id="comment-{{ $comment->id }}"
+    class="relative flex mt-4 transition duration-500 ease-in border border-gray-200 comment-container rounded-xl @if($comment->is_status_update) is-status-update {{ Str::kebab('status' . $comment->status->name) }} @endif">
     <div class="flex flex-col flex-1 px-4 py-6 md:flex-row">
         <div class="flex-none">
             <a href="#">

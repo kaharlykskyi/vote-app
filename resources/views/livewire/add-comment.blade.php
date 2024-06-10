@@ -12,6 +12,17 @@
             }, 5000)
         })
     "
+
+    x-init="
+        @if (session('scroll_to_comment'))
+            let commentToScrollTo = document.querySelector('#comment-{{ session('scroll_to_comment') }}')
+            commentToScrollTo.scrollIntoView({ behavior: 'smooth'})
+            commentToScrollTo.classList.add('bg-green-50')
+            setTimeout(() => {
+                commentToScrollTo.classList.remove('bg-green-50')
+            }, 5000)
+        @endif
+    "
 >
     <button
         type="button"

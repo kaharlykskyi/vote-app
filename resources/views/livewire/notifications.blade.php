@@ -25,6 +25,8 @@
                     <a
                         href="{{ route('idea.show', $notification->data['idea_slug']) }}"
                         class="flex px-5 py-3 transition duration-150 ease-in hover:bg-gray-100"
+                        @click.prevent="isOpen = false"
+                        wire:click.prevent="markAsRead('{{ $notification->id }}')"
                     >
                         <img src="{{ $notification->data['user_avatar'] }}" class="w-10 h-10 rounded-xl" alt="avatar">
                         <div class="ml-4">
@@ -40,6 +42,8 @@
             @endforeach
         <li class="text-center border-t border-gray-300">
             <button
+                wire:click="markAllAsRead"
+                @click="isOpen = false"
                 class="block w-full px-5 py-4 font-semibold transition duration-150 ease-in hover:bg-gray-100"
             >
                 Mark all as read
