@@ -72,7 +72,10 @@ class ShowIdeasTest extends TestCase
     public function idea_pagination_works()
     {
         $user = User::factory()->create();
-        Idea::factory(Idea::PAGINATION_COUNT + 1)->create([
+
+        $idea = Idea::factory()->create();
+        
+        Idea::factory($idea->getPerPage() + 1)->create([
             'category_id' => Category::factory()->create(),
             'user_id' => $user->id,
             'status_id' => Status::factory()->create()
@@ -82,7 +85,7 @@ class ShowIdeasTest extends TestCase
         $ideaOne->title = 'My first idea';
         $ideaOne->save();
 
-        $ideaEleven = Idea::find(Idea::PAGINATION_COUNT + 1);
+        $ideaEleven = Idea::find($idea->getPerPage() + 1);
         $ideaEleven->title = 'My eleventh idea';
         $ideaEleven->save();
 

@@ -11,6 +11,10 @@
             <div class="mt-6 font-bold text-center text-gray-400">No comments yet. Go ahead and creat first </div>
         </div>
     @endif
+
+    <div class="my-8 md:ml-22">
+        {{ $comments->links() }}
+    </div>
 </div>
 
 {{-- <div class="relative flex mt-4 bg-white is-admin comment-container rounded-xl">

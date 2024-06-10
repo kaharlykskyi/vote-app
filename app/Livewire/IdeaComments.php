@@ -5,34 +5,34 @@ namespace App\Livewire;
 use App\Models\Idea;
 use App\Models\Comment;
 use Livewire\Component;
+use Livewire\WithPagination;
 
 class IdeaComments extends Component
 {
-    public Idea $idea;
+    use WithPagination;
 
-    public $comments;
+    public Idea $idea;
 
     public $listeners = [
         'idea-was-commented' => 'ideaWasCommented',
     ];
 
-    public function ideaWasCommented(array $event)
-    {
-        $this->idea->refresh();
-        $this->comments->push(Comment::find($event['id']));
-        $this->dispatch('scroll-to-comment');
-    }
-
     public function mount(Idea $idea)
     {
         $this->idea = $idea;
-        $this->comments = $this->idea->comments()->with('user')->get();
+    }
+
+    public function ideaWasCommented(array $event)
+    {
+        $this->idea->refresh();
+        $this->setPage($this->idea->comments()->paginate()->lastPage());
+        $this->dispatch('scroll-to-comment');
     }
 
     public function render()
     {
         return view('livewire.idea-comments', [
-            'comments' => $this->comments,
+            'comments' => $this->idea->comments()->with('user')->paginate()->withQueryString(),
         ]);
     }
 }

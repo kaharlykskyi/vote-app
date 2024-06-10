@@ -21,7 +21,7 @@ class IdeaController extends Controller
             ])
             ->withCount('votes')
             ->orderBy('id', 'desc')
-            ->simplePaginate(Idea::PAGINATION_COUNT);
+            ->simplePaginate();
 
         return view('idea.index', compact('ideas'));
     }
