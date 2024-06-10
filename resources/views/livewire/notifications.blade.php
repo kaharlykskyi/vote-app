@@ -25,9 +25,13 @@
             </div>
         @endif
         @isset($notifications)
-            @foreach ($notifications as $notification)
+            @forelse ($notifications as $notification)
                 <x-comment-notification :$notification />
-            @endforeach
+            @empty
+                <li class="px-5 py-4 border-b border-gray-300">
+                    <div class="text-center text-gray-400">No new notifications</div>
+                </li>
+            @endforelse
         @endisset
 
         <li class="text-center border-t border-gray-300">
