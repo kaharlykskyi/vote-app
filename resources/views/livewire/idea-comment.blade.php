@@ -9,6 +9,13 @@
             {{-- <h4 class="text-xl font-semibold">
                 <a href="#" class="hover:underline">A random title can go here</a>
             </h4> --}}
+
+            @admin
+                @if ($comment->spam_reports > 0)
+                    <div class="mb-2 text-red">Spam Reports: {{ $comment->spam_reports }}</div>
+                @endif
+            @endadmin
+
             <div class="text-gray-600">
                 {{ $comment->body }}
             </div>
@@ -52,12 +59,34 @@
                                 @endcan
                                 <li>
                                     <a
+                                        @click.prevent="
+                                            isOpen = false
+                                            Livewire.dispatch('setMarkAsSpamComment', { id: {{ $comment->id }}})
+                                        "
                                         href="#"
                                         class="block px-5 py-3 transition duration-150 ease-in hover:bg-gray-100"
                                     >
                                         Mark as Spam
                                     </a>
                                 </li>
+                                @admin
+                                    @if ($comment->spam_reports > 0)
+                                        <li>
+                                            <a
+                                                href="#"
+                                                @click.prevent="
+                                                    isOpen = false
+                                                    Livewire.dispatch('setMarkAsNotSpamComment', {
+                                                        id: {{ $comment->id }}
+                                                    });
+                                                "
+                                                class="block px-5 py-3 transition duration-150 ease-in hover:bg-gray-100"
+                                            >
+                                                Not Spam
+                                            </a>
+                                        </li>
+                                    @endif
+                                @endadmin
                                 @can('delete', $comment)
                                     <li>
                                         <a

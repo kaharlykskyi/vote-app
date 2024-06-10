@@ -14,6 +14,8 @@ class IdeaComment extends Component
 
     public $listeners = [
         'comment-was-updated' => '$refresh',
+        'comment-was-marked-as-spam' => '$refresh',
+        'comment-was-marked-as-not-spam' => '$refresh',
     ];
 
     public function render()

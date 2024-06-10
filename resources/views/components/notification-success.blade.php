@@ -48,6 +48,14 @@
                 Livewire.on('comment-was-deleted', message => {
                     showNotification(message)
                 })
+
+                Livewire.on('comment-was-marked-as-spam', message => {
+                    showNotification(message)
+                })
+
+                Livewire.on('comment-was-marked-as-not-spam', message => {
+                    showNotification(message)
+                })
             @endif
         });
     "

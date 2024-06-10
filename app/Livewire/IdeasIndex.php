@@ -84,6 +84,11 @@ class IdeasIndex extends Component
                 return $query->where('title', 'like', '%'.$this->search.'%')
                     ->orWhere('description', 'like', '%'.$this->search.'%');
             })
+            ->when($this->filter && $this->filter == 'Spam Comments', function($query) {
+                return $query->whereHas('comments', function($query) {
+                    $query->where('spam_reports', '>=', 1);
+                });
+            })
             ->withCount('votes')
             ->withCount('comments')
             ->orderBy('id', 'desc')
