@@ -8,6 +8,8 @@
 
 @auth
     <livewire:mark-idea-as-spam :idea="$idea" />
+    <livewire:edit-comment />
+    <livewire:delete-comment />
 @endauth
 
 @admin

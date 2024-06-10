@@ -15,6 +15,7 @@ class IdeaComments extends Component
 
     public $listeners = [
         'idea-was-commented' => 'ideaWasCommented',
+        'comment-was-deleted' => '$refresh',
     ];
 
     public function mount(Idea $idea)
@@ -22,7 +23,7 @@ class IdeaComments extends Component
         $this->idea = $idea;
     }
 
-    public function ideaWasCommented(array $event)
+    public function ideaWasCommented()
     {
         $this->idea->refresh();
         $this->setPage($this->idea->comments()->paginate()->lastPage());

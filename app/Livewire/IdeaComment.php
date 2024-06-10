@@ -12,6 +12,10 @@ class IdeaComment extends Component
     public Comment $comment;
     public $ideaUserId;
 
+    public $listeners = [
+        'comment-was-updated' => '$refresh',
+    ];
+
     public function render()
     {
         return view('livewire.idea-comment');

@@ -1,6 +1,7 @@
 @props([
-    'eventToOpenModal',
-    'eventToCloseModal',
+    'eventToOpenModal' => null, //using AlpineJS events to open dialog
+    'livewireEventToOpenModal' => null, //using Livewire events to open dialog
+    'eventToCloseModal', //using AlpineJS events to close dialog
     'title',
     'description',
     'action',
@@ -12,10 +13,16 @@
     x-data="{ isOpen: false }"
     x-show="isOpen"
     @keydown.escape.window="isOpen = false"
-    {{ '@' . $eventToOpenModal }}.window="isOpen = true"
-    x-on:{{ $eventToCloseModal }}.window="
-        isOpen = false
-    "
+
+    @if ($eventToOpenModal)
+        {{ '@' . $eventToOpenModal }}.window="isOpen = true"
+    @endif
+
+    @if($livewireEventToOpenModal)
+        x-on:{{ $livewireEventToOpenModal }}.window="isOpen = true"
+    @endif
+
+    x-on:{{ $eventToCloseModal }}.window="isOpen = false"
     class="relative z-20"
     aria-labelledby="modal-title"
     role="dialog"

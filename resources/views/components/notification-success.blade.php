@@ -17,30 +17,39 @@
         }
     }"
     x-init="
-        console.log('');
-        @if ($redirect)
-            $nextTick(() => showNotification(messageToDisplay))
-        @else
-            Livewire.on('idea-was-updated', message => {
-                showNotification(message)
-            })
+        $nextTick(() => {
+            @if ($redirect)
+                $nextTick(() => showNotification(messageToDisplay))
+            @else
+                Livewire.on('idea-was-updated', message => {
+                    showNotification(message)
+                })
 
-            Livewire.on('idea-was-marked-as-spam', message => {
-                showNotification(message)
-            })
+                Livewire.on('idea-was-marked-as-spam', message => {
+                    showNotification(message)
+                })
 
-            Livewire.on('idea-was-marked-as-not-spam', message => {
-                showNotification(message)
-            })
+                Livewire.on('idea-was-marked-as-not-spam', message => {
+                    showNotification(message)
+                })
 
-            Livewire.on('status-was-updated', message => {
-                showNotification(message)
-            })
+                Livewire.on('status-was-updated', message => {
+                    showNotification(message)
+                })
 
-            Livewire.on('idea-was-commented', message => {
-                showNotification(message[0].text)
-            })
-        @endif
+                Livewire.on('idea-was-commented', message => {
+                    showNotification(message[0].text)
+                })
+
+                Livewire.on('comment-was-updated', message => {
+                    showNotification(message)
+                })
+
+                Livewire.on('comment-was-deleted', message => {
+                    showNotification(message)
+                })
+            @endif
+        });
     "
     x-show="isOpen"
     x-transition:enter="transition ease-out duration-300"
