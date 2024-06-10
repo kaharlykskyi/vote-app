@@ -2,16 +2,17 @@
 
 namespace Tests\Feature;
 
-use App\Livewire\StatusFilters;
-use App\Models\Category;
-use App\Models\Idea;
-use App\Models\Status;
-use App\Models\User;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
-use PHPUnit\Framework\Attributes\Test;
-use Livewire\Livewire;
 use Tests\TestCase;
+use App\Models\Idea;
+use App\Models\User;
+use App\Models\Status;
+use Livewire\Livewire;
+use App\Models\Category;
+use App\Livewire\IdeasIndex;
+use App\Livewire\StatusFilters;
+use PHPUnit\Framework\Attributes\Test;
+use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class StatusFiltersTest extends TestCase
 {
@@ -117,5 +118,42 @@ class StatusFiltersTest extends TestCase
         $response = $this->get(route('idea.show', $idea));
 
         $response->assertDontSee('border-blue text-gray-900');
+    }
+
+    #[Test]
+    public function filtering_works_when_query_string_in_place()
+    {
+        $statusOpen = Status::factory()->create(['name' => 'Open']);
+        $statusConsidering = Status::factory()->create(['name' => 'Considering']);
+        $statusInProgress = Status::factory()->create(['name' => 'In Progress']);
+        $statusImplemented = Status::factory()->create(['name' => 'Implemented']);
+        $statusClosed = Status::factory()->create(['name' => 'Closed']);
+
+        Idea::factory()->create([
+            'status_id' => $statusConsidering->id,
+        ]);
+
+        Idea::factory()->create([
+            'status_id' => $statusConsidering->id,
+        ]);
+
+        Idea::factory()->create([
+            'status_id' => $statusInProgress->id,
+        ]);
+
+        Idea::factory()->create([
+            'status_id' => $statusInProgress->id,
+        ]);
+
+        Idea::factory()->create([
+            'status_id' => $statusInProgress->id,
+        ]);
+
+        Livewire::withQueryParams(['status' => 'In Progress'])
+            ->test(IdeasIndex::class)
+            ->assertViewHas('ideas', function ($ideas) {
+                return $ideas->count() === 3
+                    && $ideas->first()->status->name === 'In Progress';
+            });
     }
 }

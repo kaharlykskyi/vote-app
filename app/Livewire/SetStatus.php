@@ -13,6 +13,8 @@ class SetStatus extends Component
     public $status;
     public $notifyAllVotes;
 
+    public $comment = null;
+
     public function mount(Idea $idea)
     {
         $this->idea = $idea;
@@ -21,7 +23,7 @@ class SetStatus extends Component
     public function setStatus()
     {
         if (auth()->guest() || !auth()->user()->isAdmin()) {
-            return;
+            abort(403);
         }
 
         $this->idea->status_id = $this->status;
@@ -29,6 +31,15 @@ class SetStatus extends Component
 
         if ($this->notifyAllVotes) {
             $this->notifyAllVotes();
+        }
+
+        if($this->comment) {
+            $this->idea->comments()->create([
+                'user_id' => auth()->id(),
+                'status_id' => $this->status,
+                'is_status_update' => true,
+                'body' => $this->comment,
+            ]);
         }
 
         $this->dispatch('status-was-updated', 'Status was updated to ' . $this->idea->status->name);
