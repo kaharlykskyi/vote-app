@@ -5,6 +5,7 @@ namespace App\Livewire;
 use App\Models\Idea;
 use Livewire\Component;
 use App\Mail\IdeaStatusUpdatedMail;
+use App\Models\Comment;
 use Illuminate\Support\Facades\Mail;
 
 class SetStatus extends Component
@@ -33,14 +34,12 @@ class SetStatus extends Component
             $this->notifyAllVotes();
         }
 
-        if($this->comment) {
-            $this->idea->comments()->create([
-                'user_id' => auth()->id(),
-                'status_id' => $this->status,
-                'is_status_update' => true,
-                'body' => $this->comment,
-            ]);
-        }
+        $this->idea->comments()->create([
+            'user_id' => auth()->id(),
+            'status_id' => $this->status,
+            'is_status_update' => true,
+            'body' => $this->comment ?? Comment::EMPTY_UPDATE_STATUS_MESSAGE,
+        ]);
 
         $this->dispatch('status-was-updated', 'Status was updated to ' . $this->idea->status->name);
     }

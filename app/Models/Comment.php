@@ -10,6 +10,8 @@ class Comment extends Model
 {
     use HasFactory;
 
+    const EMPTY_UPDATE_STATUS_MESSAGE = "No comment was added";
+
     protected $guarded = [];
     protected $perPage = 5;
 

@@ -16,7 +16,7 @@ class IdeaComments extends Component
     public $listeners = [
         'idea-was-commented' => 'ideaWasCommented',
         'comment-was-deleted' => '$refresh',
-        'status-was-updated' => '$refresh',
+        'status-was-updated' => 'statusWasUptated',
     ];
 
     public function mount(Idea $idea)
@@ -31,10 +31,17 @@ class IdeaComments extends Component
         $this->dispatch('scroll-to-comment');
     }
 
+    public function statusWasUptated()
+    {
+        $this->idea->refresh();
+        $this->setPage($this->idea->comments()->paginate()->lastPage());
+        $this->dispatch('scroll-to-comment');
+    }
+
     public function render()
     {
         return view('livewire.idea-comments', [
-            'comments' => $this->idea->comments()->with('user')->paginate()->withQueryString(),
+            'comments' => $this->idea->comments()->with(['user', 'status'])->paginate()->withQueryString(),
         ]);
     }
 }
