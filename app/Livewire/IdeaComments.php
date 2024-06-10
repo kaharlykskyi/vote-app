@@ -16,6 +16,7 @@ class IdeaComments extends Component
     public $listeners = [
         'idea-was-commented' => 'ideaWasCommented',
         'comment-was-deleted' => '$refresh',
+        'status-was-updated' => '$refresh',
     ];
 
     public function mount(Idea $idea)
