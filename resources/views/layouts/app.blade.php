@@ -27,15 +27,23 @@
             @if (Route::has('login'))
                 <div class="px-6 py-4">
                     @auth
-                        <form method="POST" action="{{ route('logout') }}">
-                            @csrf
+                        <div class="flex items-center space-x-4">
+                            <form method="POST" action="{{ route('logout') }}">
+                                @csrf
 
-                            <a href="{{ route('logout') }}"
-                                onclick="event.preventDefault();
-                                                this.closest('form').submit();">
-                                {{ __('Log out') }}
+                                <a href="{{ route('logout') }}"
+                                        onclick="event.preventDefault();
+                                                    this.closest('form').submit();">
+                                    {{ __('Log out') }}
+                                </a>
+                            </form>
+
+                            <livewire:notifications />
+
+                            <a href="/profile">
+                                <img src="{{ auth()->user()->getAvatar() }}" alt="avatar" class="w-10 h-10 rounded-full">
                             </a>
-                        </form>
+                        </div>
                     @else
                         <a href="{{ route('login') }}" class="text-sm text-gray-700 underline">Log in</a>
 
@@ -45,11 +53,6 @@
                     @endauth
                 </div>
             @endif
-            @auth
-                <a href="#">
-                    <img src="{{ auth()->user()->getAvatar() }}" alt="avatar" class="w-10 h-10 rounded-full">
-                </a>
-            @endauth
         </div>
     </header>
 
@@ -98,10 +101,7 @@
     </main>
 
     @if (session('success_message'))
-        <x-notification-success
-            :redirect="true"
-            message-to-display="{{ (session('success_message')) }}"
-        />
+        <x-notification-success :redirect="true" message-to-display="{{ session('success_message') }}" />
     @endif
 
     @livewireScripts

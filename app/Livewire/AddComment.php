@@ -4,6 +4,7 @@ namespace App\Livewire;
 
 use App\Models\Idea;
 use Livewire\Component;
+use App\Notifications\CommentAdded;
 
 class AddComment extends Component
 {
@@ -32,7 +33,9 @@ class AddComment extends Component
 
         $this->body = '';
 
-        $this->idea = Idea::find($this->idea->id); // Refresh the idea
+        $this->idea = Idea::find($this->idea->id);
+
+        $this->idea->user->notify(new CommentAdded($comment));
 
         $this->dispatch('idea-was-commented', [
             'id' => $comment->id,
