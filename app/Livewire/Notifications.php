@@ -6,18 +6,37 @@ use Livewire\Component;
 
 class Notifications extends Component
 {
-
+    const NOTIFICATION_THRESHOLD = 20;
     public $notifications;
-    public $loading = true;
+    public $notificationCount;
+    public $loading;
 
-    protected $listeners = [
-        'fetch-notifications' => 'fetchNotifications'
-    ];
+    protected $listeners = ['getNotifications'];
 
-    public function fetchNotifications()
+    public function mount()
     {
-        usleep(rand(100000, 600000));
-        $this->notifications = auth()->user()->unreadNotifications;
+        $this->notifications = collect([]);
+        $this->loading = true;
+        $this->getNotificationCount();
+    }
+
+    public function getNotificationCount()
+    {
+        $this->notificationCount = auth()->user()->unreadNotifications()->count();
+
+        if ($this->notificationCount > self::NOTIFICATION_THRESHOLD) {
+            $this->notificationCount = self::NOTIFICATION_THRESHOLD.'+';
+        }
+    }
+
+    public function getNotifications()
+    {
+        $this->notifications = auth()->user()
+            ->unreadNotifications()
+            ->latest()
+            ->take(self::NOTIFICATION_THRESHOLD)
+            ->get();
+
         $this->loading = false;
     }
 
