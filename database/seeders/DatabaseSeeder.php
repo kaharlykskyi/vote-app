@@ -20,13 +20,17 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        $userCount = 299;
+        $ideaCount = 1000;
+        $commentCountMax = 50;
+
         User::factory()->create([
             'name' => 'Mike',
             'email' => 'mishakagar@gmail.com',
             'password' => bcrypt('1234'),
         ]);
 
-        User::factory(19)->create();
+        User::factory($userCount)->create();
 
         Category::factory()->create(['name' => 'Laravel']);
         Category::factory()->create(['name' => 'PHP']);
@@ -39,34 +43,39 @@ class DatabaseSeeder extends Seeder
         Status::factory()->create(['name' => 'Implemented']);
         Status::factory()->create(['name' => 'Closed']);
 
-        Idea::factory(100)->existing()->create();
+        Idea::factory($ideaCount)->existing()->create();
 
-        foreach (range(1, 20) as $user_id) {
-            foreach (range(1, 100) as $idea_id) {
-                if ($idea_id % 2 === 0) {
+        foreach (Idea::all() as $idea) {
+            $shouldAddVotes = rand(0, 1);
+            if($shouldAddVotes) {
+                $maxUsers = rand(1, $userCount + 1);
+                foreach (range(1, $maxUsers) as $user_id) {
                     Vote::factory()->create([
                         'user_id' => $user_id,
-                        'idea_id' => $idea_id,
+                        'idea_id' => $idea->id,
                     ]);
                 }
             }
-        }
 
-        foreach (Idea::all() as $idea) {
-            $comments = Comment::factory(5)->existing()->create(['idea_id' => $idea->id]);
-            //random add one or few likes to a comment
-            foreach ($comments as $comment) {
-                $shouldAddCommentLike = rand(0, 1);
-                if ($shouldAddCommentLike) {
-                    $maxUsers = rand(1, 20);
-                    foreach (range(1, $maxUsers) as $user_id) {
-                        Like::factory()->create([
-                            'user_id' => $user_id,
-                            'comment_id' => $comment->id,
-                        ]);
+            $shouldAddComments = rand(0, 1);
+            if($shouldAddComments) {
+                $commentCount = rand(0, $commentCountMax);
+                $comments = Comment::factory($commentCount)->existing()->create(['idea_id' => $idea->id]);
+
+                foreach ($comments as $comment) {
+                    $shouldAddCommentLike = rand(0, 1);
+                    if ($shouldAddCommentLike) {
+                        $maxUsers = rand(1, 20);
+                        foreach (range(1, $maxUsers) as $user_id) {
+                            Like::factory()->create([
+                                'user_id' => $user_id,
+                                'comment_id' => $comment->id,
+                            ]);
+                        }
                     }
                 }
             }
+
         }
     }
 }
