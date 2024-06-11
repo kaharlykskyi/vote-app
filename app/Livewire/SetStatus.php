@@ -27,6 +27,11 @@ class SetStatus extends Component
             abort(403);
         }
 
+        if($this->idea->status_id === (int) $this->status) {
+            $this->dispatch('status-was-updated-error', "Status is already set to {$this->idea->status->name}");
+            return;
+        }
+
         $this->idea->status_id = $this->status;
         $this->idea->save();
 

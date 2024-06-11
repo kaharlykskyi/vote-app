@@ -24,7 +24,7 @@
             @endadmin
 
             <div class="text-gray-600">
-                {{ $comment->body }}
+                {!! nl2br(e($comment->body)) !!}
             </div>
 
             <div class="flex items-center justify-between mt-6">

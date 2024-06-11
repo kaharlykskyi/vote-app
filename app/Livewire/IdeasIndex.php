@@ -18,7 +18,12 @@ class IdeasIndex extends Component
     public $filter;
     public $search;
 
-    protected $queryString = ['status', 'category', 'filter', 'search'];
+    protected $queryString = [
+        'status',
+        'category',
+        'filter',
+        'search' => ['except' => ''],
+    ];
 
     protected $listeners = ['queryStringUpdatedStatus'];
 

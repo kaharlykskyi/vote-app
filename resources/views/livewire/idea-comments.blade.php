@@ -7,7 +7,7 @@
         </div>
     @else
         <div class="mx-auto mt-12 w-70">
-            <img src="{{ asset('img/no-ideas.svg') }}" alt="No Ideas" class="mx-auto" style="mix-blend-mode: luminosity;">
+            <img src="{{ asset('img/no-ideas.svg') }}" alt="No Ideas" class="mx-auto mix-blend-luminosity">
             <div class="mt-6 font-bold text-center text-gray-400">No comments yet. Go ahead and creat first </div>
         </div>
     @endif

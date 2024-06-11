@@ -17,6 +17,7 @@ class IdeaShow extends Component
 
     public $listeners = [
         'status-was-updated' => '$refresh',
+        'status-was-updated-error' => '$refresh',
         'idea-was-updated' => '$refresh',
         'idea-was-deleted' => '$refresh',
         'idea-was-marked-as-spam' => '$refresh',
