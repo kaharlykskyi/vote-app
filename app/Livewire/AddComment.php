@@ -11,7 +11,7 @@ class AddComment extends Component
 {
 
     use WithAuthRedirects;
-    
+
     public Idea $idea;
 
     public $body;
@@ -38,7 +38,9 @@ class AddComment extends Component
 
         $this->idea = Idea::find($this->idea->id);
 
-        $this->idea->user->notify(new CommentAdded($comment));
+        if($this->idea->user->id !== $comment->user->id) {
+            $this->idea->user->notify(new CommentAdded($comment));
+        }
 
         $this->dispatch('idea-was-commented', [
             'id' => $comment->id,

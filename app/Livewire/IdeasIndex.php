@@ -80,6 +80,9 @@ class IdeasIndex extends Component
             ->when($this->filter && $this->filter == 'Top Voted', function($query) {
                 return $query->orderByDesc('votes_count');
             })
+            ->when($this->filter && $this->filter == 'Top Commented', function($query) {
+                return $query->orderByDesc('comments_count');
+            })
             ->when($this->filter && $this->filter == 'My Ideas', function($query) {
                 return $query->where('user_id', auth()->id());
             })

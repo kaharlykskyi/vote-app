@@ -12,6 +12,7 @@
             <select wire:model.live="filter" name="other_filters" id="other_filters" class="w-full px-4 py-2 border-gray-200 rounded-xl">
                 <option value="No Filters">No Filters</option>
                 <option value="Top Voted">Top Voted</option>
+                <option value="Top Commented">Top Commented</option>
                 <option value="My Ideas">My Ideas</option>
                 @admin
                     <option value="Spam Ideas">Spam Ideas</option>

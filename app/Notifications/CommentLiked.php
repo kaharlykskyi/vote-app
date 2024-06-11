@@ -3,23 +3,27 @@
 namespace App\Notifications;
 
 use App\Models\Comment;
+use App\Models\User;
 use Illuminate\Bus\Queueable;
+use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
-use Illuminate\Notifications\Notification;
 
-class CommentAdded extends Notification implements ShouldQueue
+class CommentLiked extends Notification implements ShouldQueue
 {
     use Queueable;
 
     public Comment $comment;
 
+    public User $liker;
+
     /**
      * Create a new notification instance.
      */
-    public function __construct(Comment $comment)
+    public function __construct(Comment $comment, User $liker)
     {
         $this->comment = $comment;
+        $this->liker = $liker;
     }
 
     /**
@@ -30,7 +34,6 @@ class CommentAdded extends Notification implements ShouldQueue
     public function via(object $notifiable): array
     {
         return ['database'];
-        // return ['mail', 'database'];
     }
 
     /**
@@ -39,10 +42,9 @@ class CommentAdded extends Notification implements ShouldQueue
     public function toMail(object $notifiable): MailMessage
     {
         return (new MailMessage)
-            ->subject('A comment has been added to your idea')
-            ->markdown('emails.comment-added', [
-                'comment' => $this->comment,
-            ]);
+                    ->line('The introduction to the notification.')
+                    ->action('Notification Action', url('/'))
+                    ->line('Thank you for using our application!');
     }
 
     /**
@@ -52,11 +54,11 @@ class CommentAdded extends Notification implements ShouldQueue
      */
     public function toArray(object $notifiable): array
     {
-        $html = "commented on <span class='font-semibold'>{$this->comment->idea->title}</span>: <span>\"{$this->comment->body}\"</span>";
+        $html = "liked your comment <span class='font-semibold'>\"{$this->comment->body}\"</span>";
         return [
             'url' => route('idea.show', $this->comment->idea->slug),
-            'user_avatar' => $this->comment->user->getAvatar(),
-            'user_name' => $this->comment->user->name,
+            'user_avatar' => $this->liker->getAvatar(),
+            'user_name' => $this->liker->name,
             'html' => $html,
             'idea_id' => $this->comment->idea->id,
             'idea_slug' => $this->comment->idea->slug,

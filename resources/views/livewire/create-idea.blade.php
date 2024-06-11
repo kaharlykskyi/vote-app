@@ -22,7 +22,7 @@
             </div>
             <div>
                 <textarea wire:model.defer="description" id="idea" cols="30" rows="4"
-                    class="w-full px-4 py-2 text-sm placeholder-gray-500 bg-gray-100 border border-gray-200 rounded-xl"
+                    class="w-full px-4 py-2 text-sm placeholder-gray-500 bg-gray-100 border border-gray-200 resize-none rounded-xl"
                     placeholder="Describe your idea"></textarea>
                 @error('description')
                     <p class="mt-1 text-xs text-red">{{ $message }}</p>

@@ -4,6 +4,7 @@ namespace App\Livewire;
 
 use App\Livewire\Traits\WithAuthRedirects;
 use App\Models\Comment;
+use App\Notifications\CommentLiked;
 use Livewire\Component;
 
 class LikeComment extends Component
@@ -35,6 +36,9 @@ class LikeComment extends Component
             $this->isLiked = false;
         } else {
             $this->comment->like(auth()->user());
+            if($this->comment->user->id !== auth()->user()->id) {
+                $this->comment->user->notify(new CommentLiked($this->comment, auth()->user()));
+            }
             $this->likeCount++;
             $this->isLiked = true;
         }
