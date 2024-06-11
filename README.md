@@ -1,3 +1,6 @@
+# Vote app
+This is simple voting app, similar to UserVoice, that allows you to create ideas, vote and comment on them, sort and filter the results, and even administer the site. Made with use of the TALL (Tailwind, Alpine, Livewire, Laravel) stack.
+
 ## Installation
 
 1. Clone the repo and cd into it

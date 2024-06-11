@@ -2,7 +2,11 @@
     @if($comments->isNotEmpty())
         <div class="relative pt-4 my-8 mt-1 space-y-6 comments-container md:ml-22">
             @foreach ($comments as $comment)
-                <livewire:idea-comment :key="$comment->id" :comment="$comment" :ideaUserId="$idea->user_id" />
+                <livewire:idea-comment
+                    :key="$comment->id"
+                    :comment="$comment"
+                    :ideaUserId="$idea->user_id"
+                />
             @endforeach
         </div>
     @else

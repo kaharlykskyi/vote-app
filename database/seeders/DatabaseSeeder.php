@@ -9,6 +9,7 @@ use App\Models\Vote;
 use App\Models\Status;
 use App\Models\Category;
 use App\Models\Comment;
+use App\Models\Like;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Auth;
 
@@ -52,7 +53,20 @@ class DatabaseSeeder extends Seeder
         }
 
         foreach (Idea::all() as $idea) {
-            Comment::factory(5)->existing()->create(['idea_id' => $idea->id]);
+            $comments = Comment::factory(5)->existing()->create(['idea_id' => $idea->id]);
+            //random add one or few likes to a comment
+            foreach ($comments as $comment) {
+                $shouldAddCommentLike = rand(0, 1);
+                if ($shouldAddCommentLike) {
+                    $maxUsers = rand(1, 20);
+                    foreach (range(1, $maxUsers) as $user_id) {
+                        Like::factory()->create([
+                            'user_id' => $user_id,
+                            'comment_id' => $comment->id,
+                        ]);
+                    }
+                }
+            }
         }
     }
 }

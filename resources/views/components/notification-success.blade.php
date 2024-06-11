@@ -63,6 +63,10 @@
                 Livewire.on('comment-was-marked-as-not-spam', message => {
                     showNotification(message)
                 })
+
+                Livewire.on('comment-was-liked', message => {
+                    showNotification(message)
+                })
             @endif
         });
     "
