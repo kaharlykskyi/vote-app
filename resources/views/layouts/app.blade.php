@@ -77,17 +77,8 @@
                     </p>
                 </div>
 
-                @auth()
-                    <livewire:create-idea />
-                @else
-                    <div class="my-4 text-center">
-                        <a href="{{ route('login') }}"
-                            class="justify-center inline-block w-1/2 px-6 py-3 text-xs font-bold text-white transition duration-150 ease-in border h-11 bg-blue border-blue hover:bg-blue-hover rounded-xl">Log
-                            in</a>
-                        <a href="{{ route('register') }}"
-                            class="justify-center inline-block w-1/2 px-6 py-3 mt-4 text-xs font-bold transition duration-150 ease-in bg-gray-200 border border-gray-200 h-11 hover:border-gray-400 rounded-xl">Register</a>
-                    </div>
-                @endauth
+                <livewire:create-idea />
+                
             </div>
         </div>
         <div class="w-full px-2 md:px-0 md:w-175">

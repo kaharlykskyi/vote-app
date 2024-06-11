@@ -2,12 +2,16 @@
 
 namespace App\Livewire;
 
+use App\Livewire\Traits\WithAuthRedirects;
 use App\Models\Idea;
 use Livewire\Component;
 use App\Models\Category;
 
 class CreateIdea extends Component
 {
+
+    use WithAuthRedirects;
+
     public $title;
     public $description;
 
@@ -21,7 +25,7 @@ class CreateIdea extends Component
 
     public function createIdea()
     {
-        if(!auth()->check()) abort(403, 'You must be logged in to create an idea.');
+        if(auth()->guest()) abort(403, 'You must be logged in to create an idea.');
 
         $this->validate();
 

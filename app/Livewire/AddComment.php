@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use App\Livewire\Traits\WithAuthRedirects;
 use App\Models\Idea;
 use Livewire\Component;
 use App\Notifications\CommentAdded;
@@ -9,6 +10,8 @@ use App\Notifications\CommentAdded;
 class AddComment extends Component
 {
 
+    use WithAuthRedirects;
+    
     public Idea $idea;
 
     public $body;
@@ -20,7 +23,7 @@ class AddComment extends Component
     public function postComment()
     {
         if (auth()->guest()) {
-            return redirect(route('login'));
+            return $this->redirectToLogin();
         }
 
         $this->validate();

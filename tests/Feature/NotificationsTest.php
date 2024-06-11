@@ -12,7 +12,7 @@ use Livewire\Livewire;
 use Tests\TestCase;
 use PHPUnit\Framework\Attributes\Test;
 
-class CommentNotificationsTest extends TestCase
+class NotificationsTest extends TestCase
 {
     use RefreshDatabase;
 
@@ -23,7 +23,7 @@ class CommentNotificationsTest extends TestCase
 
         $response = $this->actingAs($user)->get(route('idea.index'));
 
-        $response->assertSeeLivewire('comment-notifications');
+        $response->assertSeeLivewire('notifications');
     }
 
     #[Test]
@@ -31,7 +31,7 @@ class CommentNotificationsTest extends TestCase
     {
         $response = $this->get(route('idea.index'));
 
-        $response->assertDontSeeLivewire('comment-notifications');
+        $response->assertDontSeeLivewire('notifications');
     }
 
     #[Test]
@@ -47,13 +47,13 @@ class CommentNotificationsTest extends TestCase
 
         Livewire::actingAs($userACommenting)
             ->test(AddComment::class, [ 'idea' => $idea, ])
-            ->set('comment', 'This is the first comment')
-            ->call('addComment');
+            ->set('body', 'This is the first comment')
+            ->call('postComment');
 
         Livewire::actingAs($userBCommenting)
             ->test(AddComment::class, [ 'idea' => $idea, ])
-            ->set('comment', 'This is the second comment')
-            ->call('addComment');
+            ->set('body', 'This is the second comment')
+            ->call('postComment');
 
         DatabaseNotification::first()->update([ 'created_at' => now()->subMinute() ]);
 
@@ -78,8 +78,8 @@ class CommentNotificationsTest extends TestCase
         foreach (range(1, $threshold + 1) as $item) {
             Livewire::actingAs($userACommenting)
                 ->test(AddComment::class, [ 'idea' => $idea, ])
-                ->set('comment', 'This is the first comment')
-                ->call('addComment');
+                ->set('body', 'This is the first comment')
+                ->call('postComment');
         }
 
         Livewire::actingAs($user)
@@ -102,13 +102,13 @@ class CommentNotificationsTest extends TestCase
 
         Livewire::actingAs($userACommenting)
             ->test(AddComment::class, [ 'idea' => $idea, ])
-            ->set('comment', 'This is the first comment')
-            ->call('addComment');
+            ->set('body', 'This is the first comment')
+            ->call('postComment');
 
         Livewire::actingAs($userBCommenting)
             ->test(AddComment::class, [ 'idea' => $idea, ])
-            ->set('comment', 'This is the second comment')
-            ->call('addComment');
+            ->set('body', 'This is the second comment')
+            ->call('postComment');
 
         Livewire::actingAs($user)
             ->test(Notifications::class)
@@ -131,13 +131,13 @@ class CommentNotificationsTest extends TestCase
 
         Livewire::actingAs($userACommenting)
             ->test(AddComment::class, [ 'idea' => $idea, ])
-            ->set('comment', 'This is the first comment')
-            ->call('addComment');
+            ->set('body', 'This is the first comment')
+            ->call('postComment');
 
         Livewire::actingAs($userBCommenting)
             ->test(AddComment::class, [ 'idea' => $idea, ])
-            ->set('comment', 'This is the second comment')
-            ->call('addComment');
+            ->set('body', 'This is the second comment')
+            ->call('postComment');
 
         Livewire::actingAs($user)
             ->test(Notifications::class)
@@ -163,8 +163,8 @@ class CommentNotificationsTest extends TestCase
 
         Livewire::actingAs($userACommenting)
             ->test(AddComment::class, [ 'idea' => $idea, ])
-            ->set('comment', 'This is the first comment')
-            ->call('addComment');
+            ->set('body', 'This is the first comment')
+            ->call('postComment');
 
         $idea->comments()->delete();
         $idea->delete();
@@ -188,8 +188,8 @@ class CommentNotificationsTest extends TestCase
 
         Livewire::actingAs($userACommenting)
             ->test(AddComment::class, [ 'idea' => $idea, ])
-            ->set('comment', 'This is the first comment')
-            ->call('addComment');
+            ->set('body', 'This is the first comment')
+            ->call('postComment');
 
         $idea->comments()->delete();
 
