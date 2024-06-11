@@ -46,8 +46,8 @@ class DatabaseSeeder extends Seeder
         Idea::factory($ideaCount)->existing()->create();
 
         foreach (Idea::all() as $idea) {
-            $shouldAddVotes = rand(0, 1);
-            if($shouldAddVotes) {
+            $shouldAddVotes = rand(0, 2);
+            if(in_array($shouldAddVotes, [1, 2])) {
                 $maxUsers = rand(1, $userCount + 1);
                 foreach (range(1, $maxUsers) as $user_id) {
                     Vote::factory()->create([
